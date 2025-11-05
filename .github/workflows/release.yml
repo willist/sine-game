@@ -11,6 +11,7 @@ jobs:
   export-web:
     name: Web Export
     runs-on: ubuntu-latest
+    environment: production
     container:
       image: barichello/godot-ci:4.4
     steps:
@@ -46,6 +47,7 @@ jobs:
     needs: [export-web]
     name: Deploy to itch.io
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - name: Download Web Artifact
         uses: actions/download-artifact@v4
