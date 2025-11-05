@@ -35,9 +35,8 @@ offset_left = 20.0
 offset_top = 60.0
 offset_right = 500.0
 offset_bottom = 180.0
-text = "W/S or Up/Down: Change amplitude
-A/D or Left/Right: Change wavelength
-Shift + Left/Right: Shift wave horizontally
-Shift + Up/Down: Shift wave vertically"
+theme_override_font_sizes/font_size = 20
+text = "Arrows/WASD: Move the wave
+Shift + Arrows: Stretch and squeeze the wave"
 
 [connection signal="timeout" from="ObstacleTimer" to="." method="_on_obstacle_timer_timeout"]

@@ -47,44 +47,44 @@ func _process(delta):
 func handle_input(delta):
 	var shift_pressed = Input.is_key_pressed(KEY_SHIFT)
 
-	# Amplitude control (W/S or Up/Down) - only when shift is not pressed
-	if not shift_pressed:
-		if Input.is_action_pressed("move_up"):
-			amplitude = clamp(amplitude + amplitude_change_speed * delta, MIN_AMPLITUDE, MAX_AMPLITUDE)
-		if Input.is_action_pressed("move_down"):
-			amplitude = clamp(amplitude - amplitude_change_speed * delta, MIN_AMPLITUDE, MAX_AMPLITUDE)
+	# Shift + Up/Down: Amplitude control (stretch and squeeze)
+	if Input.is_action_pressed("slide_wave_up"):
+		amplitude = clamp(amplitude + amplitude_change_speed * delta, MIN_AMPLITUDE, MAX_AMPLITUDE)
+	if Input.is_action_pressed("slide_wave_down"):
+		amplitude = clamp(amplitude - amplitude_change_speed * delta, MIN_AMPLITUDE, MAX_AMPLITUDE)
 
 	# Clamp wave_y_position to keep wave on screen after amplitude changes
 	wave_y_position = clamp(wave_y_position, amplitude, screen_height - amplitude)
 
-	# Shift + Up/Down: Translate wave vertically
-	if Input.is_action_pressed("slide_wave_up"):
-		wave_y_position -= wave_y_speed * delta
-	if Input.is_action_pressed("slide_wave_down"):
-		wave_y_position += wave_y_speed * delta
+	# Up/Down: Translate wave vertically (move the wave)
+	if not shift_pressed:
+		if Input.is_action_pressed("move_up"):
+			wave_y_position -= wave_y_speed * delta
+		if Input.is_action_pressed("move_down"):
+			wave_y_position += wave_y_speed * delta
 
 	# Clamp wave_y_position to keep wave on screen
 	wave_y_position = clamp(wave_y_position, amplitude, screen_height - amplitude)
 
-	# Shift + Left/Right: Translate wave horizontally
+	# Shift + Left/Right: Wavelength control (stretch and squeeze)
+	var old_wavelength = wavelength
+
 	if Input.is_action_pressed("slide_wave_left"):
-		wave_offset += wave_speed * delta
+		wavelength = clamp(wavelength - wavelength_change_speed * delta, MIN_WAVELENGTH, MAX_WAVELENGTH)
 	if Input.is_action_pressed("slide_wave_right"):
-		wave_offset -= wave_speed * delta
+		wavelength = clamp(wavelength + wavelength_change_speed * delta, MIN_WAVELENGTH, MAX_WAVELENGTH)
 
-	# A/D or Left/Right: Wavelength control (anchored at surfer position) - only when shift is not pressed
+	# Adjust wave_offset to keep surfer at same phase position
+	if wavelength != old_wavelength:
+		var phase_at_surfer = (SURFER_X / old_wavelength + wave_offset / old_wavelength)
+		wave_offset = (phase_at_surfer - SURFER_X / wavelength) * wavelength
+
+	# Left/Right: Translate wave horizontally (move the wave)
 	if not shift_pressed:
-		var old_wavelength = wavelength
-
 		if Input.is_action_pressed("decrease_wavelength"):
-			wavelength = clamp(wavelength - wavelength_change_speed * delta, MIN_WAVELENGTH, MAX_WAVELENGTH)
+			wave_offset += wave_speed * delta
 		if Input.is_action_pressed("increase_wavelength"):
-			wavelength = clamp(wavelength + wavelength_change_speed * delta, MIN_WAVELENGTH, MAX_WAVELENGTH)
-
-		# Adjust wave_offset to keep surfer at same phase position
-		if wavelength != old_wavelength:
-			var phase_at_surfer = (SURFER_X / old_wavelength + wave_offset / old_wavelength)
-			wave_offset = (phase_at_surfer - SURFER_X / wavelength) * wavelength
+			wave_offset -= wave_speed * delta
 
 func generate_wave():
 	var points = PackedVector2Array()
