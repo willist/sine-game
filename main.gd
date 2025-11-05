@@ -6,6 +6,9 @@ extends Node2D
 @onready var score_label = $UI/ScoreLabel
 @onready var high_score_label = $UI/HighScoreLabel
 @onready var pause_overlay = $UI/PauseOverlay
+@onready var game_over_overlay = $UI/GameOverOverlay
+@onready var final_score_label = $UI/GameOverOverlay/FinalScoreLabel
+@onready var final_best_label = $UI/GameOverOverlay/FinalBestLabel
 
 var obstacle_scene = preload("res://obstacle.tscn")
 var score: int = 0
@@ -18,6 +21,7 @@ func _ready():
 	surfer.set_wave(wave)
 	surfer.game_over.connect(_on_game_over)
 	pause_overlay.hide()
+	game_over_overlay.hide()
 	load_high_score()
 	high_score_label.text = "Best: " + str(high_score)
 
@@ -78,3 +82,15 @@ func _on_game_over():
 		high_score = score
 		high_score_label.text = "Best: " + str(high_score)
 		save_high_score()
+
+	# Update game over overlay
+	final_score_label.text = "Score: " + str(score)
+	final_best_label.text = "Best: " + str(high_score)
+
+	# Pause the game and show game over screen
+	get_tree().paused = true
+	game_over_overlay.show()
+
+func _on_play_again_pressed():
+	get_tree().paused = false
+	get_tree().reload_current_scene()

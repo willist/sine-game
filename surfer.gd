@@ -27,5 +27,3 @@ func _on_area_entered(area):
 func handle_game_over():
 	print("Game Over! Hit an obstacle!")
 	game_over.emit()
-	await get_tree().create_timer(0.1).timeout
-	get_tree().reload_current_scene()

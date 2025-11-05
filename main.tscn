@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxm8n7v2p1qkr"]
+[gd_scene load_steps=6 format=3 uid="uid://bxm8n7v2p1qkr"]
 
 [ext_resource type="PackedScene" uid="uid://c8xj4h3b1y5xe" path="res://wave.tscn" id="1_wave"]
 [ext_resource type="PackedScene" uid="uid://b3hk7f2m8oavq" path="res://surfer.tscn" id="2_surfer"]
 [ext_resource type="Script" uid="uid://dsdv2lhx6ir6j" path="res://main.gd" id="3_main"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_accept"]
+action = &"ui_accept"
+
+[sub_resource type="Shortcut" id="Shortcut_accept"]
+events = [SubResource("InputEventAction_accept")]
 
 [node name="Main" type="Node2D"]
 process_mode = 3
@@ -52,6 +58,82 @@ text = "PAUSED"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="GameOverOverlay" type="ColorRect" parent="UI"]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="GameOverLabel" type="Label" parent="UI/GameOverOverlay"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FinalScoreLabel" type="Label" parent="UI/GameOverOverlay"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -60.0
+offset_right = 150.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Score: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FinalBestLabel" type="Label" parent="UI/GameOverOverlay"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -10.0
+offset_right = 150.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "Best: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayAgainButton" type="Button" parent="UI/GameOverOverlay"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 60.0
+offset_right = 100.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+shortcut = SubResource("Shortcut_accept")
+text = "Play Again"
+
 [node name="ScoreLabel" type="Label" parent="UI"]
 anchors_preset = 1
 anchor_left = 1.0
@@ -88,3 +170,4 @@ text = "Arrows/WASD: Move the wave
 Shift + Arrows: Stretch and squeeze the wave"
 
 [connection signal="timeout" from="ObstacleTimer" to="." method="_on_obstacle_timer_timeout"]
+[connection signal="pressed" from="UI/GameOverOverlay/PlayAgainButton" to="." method="_on_play_again_pressed"]
