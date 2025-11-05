@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.7.0](https://github.com/willist/sine-game/compare/v1.6.0...v1.7.0) (2025-11-05)
+
+### Features
+
+* spawn 10% of obstacles on wave center ([9971f78](https://github.com/willist/sine-game/commit/9971f781014f69c37cbb2b706416bb6cab2700b3))
+
 ## [1.6.0](https://github.com/willist/sine-game/compare/v1.5.0...v1.6.0) (2025-11-05)
 
 ### Features
