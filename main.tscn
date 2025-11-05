@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxm8n7v2p1qkr"]
+
+[ext_resource type="PackedScene" uid="uid://c8xj4h3b1y5xe" path="res://wave.tscn" id="1_wave"]
+[ext_resource type="PackedScene" uid="uid://b3hk7f2m8oavq" path="res://surfer.tscn" id="2_surfer"]
+[ext_resource type="Script" uid="uid://dsdv2lhx6ir6j" path="res://main.gd" id="3_main"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("3_main")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.05, 0.05, 0.15, 1)
+
+[node name="Wave" parent="." instance=ExtResource("1_wave")]
+
+[node name="Surfer" parent="." instance=ExtResource("2_surfer")]
+
+[node name="ObstacleTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ScoreLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 24
+text = "Score: 0"
+
+[node name="InfoLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 60.0
+offset_right = 500.0
+offset_bottom = 180.0
+text = "W/S or Up/Down: Change amplitude
+A/D or Left/Right: Change wavelength
+Shift + Left/Right: Shift wave horizontally
+Shift + Up/Down: Shift wave vertically"
+
+[connection signal="timeout" from="ObstacleTimer" to="." method="_on_obstacle_timer_timeout"]

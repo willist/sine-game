@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1moi4hjf8v5"]
+
+[ext_resource type="Script" uid="uid://cts6hu6tigyet" path="res://obstacle.gd" id="1_obstacle"]
+
+[node name="Obstacle" type="Area2D" groups=["obstacles"]]
+script = ExtResource("1_obstacle")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Sprite" type="Polygon2D" parent="."]
+color = Color(1, 0.2, 0.2, 1)
+polygon = PackedVector2Array(-25, -25, 25, -25, 25, 25, -25, 25)
