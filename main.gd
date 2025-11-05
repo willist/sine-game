@@ -53,10 +53,16 @@ func spawn_obstacle():
 	var obstacle = obstacle_scene.instantiate()
 	obstacle.process_mode = Node.PROCESS_MODE_PAUSABLE
 
-	# Random Y position across full screen height, accounting for obstacle size
-	var screen_height = get_viewport_rect().size.y
-	var obstacle_half_height = obstacle.obstacle_size.y / 2.0
-	var random_y = randf_range(obstacle_half_height, screen_height - obstacle_half_height)
+	# 10% chance to spawn dead center on the wave, otherwise random position
+	var random_y: float
+	if randf() < 0.1:
+		# Spawn at wave center position
+		random_y = wave.wave_y_position
+	else:
+		# Random Y position across full screen height, accounting for obstacle size
+		var screen_height = get_viewport_rect().size.y
+		var obstacle_half_height = obstacle.obstacle_size.y / 2.0
+		random_y = randf_range(obstacle_half_height, screen_height - obstacle_half_height)
 
 	# Spawn off the right side of the screen
 	obstacle.position = Vector2(1380, random_y)
