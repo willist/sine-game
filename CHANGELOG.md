@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/willist/sine-game/compare/v1.4.0...v1.5.0) (2025-11-05)
+
+### Features
+
+* add game over modal with play again button ([064e98b](https://github.com/willist/sine-game/commit/064e98b4e55455bacea0599bddc9c61fdb3ff1f9))
+* improve pause overlay UI layout ([5daed03](https://github.com/willist/sine-game/commit/5daed03d7392a69fd9c37ec74570f60a6827aafd))
+
 ## [1.4.0](https://github.com/willist/sine-game/compare/v1.3.0...v1.4.0) (2025-11-05)
 
 ### Features
