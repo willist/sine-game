@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.4.0](https://github.com/willist/sine-game/compare/v1.3.0...v1.4.0) (2025-11-05)
+
+### Features
+
+* translate right faster ([b17e6f8](https://github.com/willist/sine-game/commit/b17e6f8ab510667b6720ac24d8662b8d73ffb495))
+
 ## [1.3.0](https://github.com/willist/sine-game/compare/v1.2.0...v1.3.0) (2025-11-05)
 
 ### Features
