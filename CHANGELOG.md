@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.0](https://github.com/willist/sine-game/compare/v1.1.0...v1.2.0) (2025-11-05)
+
+### Features
+
+* add pause functionality with ESC key ([7864b68](https://github.com/willist/sine-game/commit/7864b687d6b1b0e471ac46b9c0ee620933d0b907))
+
 ## [1.1.0](https://github.com/willist/sine-game/compare/v1.0.0...v1.1.0) (2025-11-05)
 
 ### Features
