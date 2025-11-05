@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.6.0](https://github.com/willist/sine-game/compare/v1.5.0...v1.6.0) (2025-11-05)
+
+### Features
+
+* spawn obstacles across full viewport height ([5226cfd](https://github.com/willist/sine-game/commit/5226cfd291b0c81e37d02b4e9c00745f240d6c11))
+
 ## [1.5.0](https://github.com/willist/sine-game/compare/v1.4.0...v1.5.0) (2025-11-05)
 
 ### Features
