@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.0](https://github.com/willist/sine-game/compare/v1.0.0...v1.1.0) (2025-11-05)
+
+### Features
+
+* flip controls and improve instructions ([b9064c0](https://github.com/willist/sine-game/commit/b9064c04a12da23f59d6c407a40fa12f28eeeeda))
+
 ## 1.0.0 (2025-11-05)
 
 ### Features
