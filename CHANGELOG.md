@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.0](https://github.com/willist/sine-game/compare/v1.2.0...v1.3.0) (2025-11-05)
+
+### Features
+
+* add persistent high score tracking ([2aae418](https://github.com/willist/sine-game/commit/2aae4184df23703774a5fa4da539d604a9f8eb94))
+
 ## [1.2.0](https://github.com/willist/sine-game/compare/v1.1.0...v1.2.0) (2025-11-05)
 
 ### Features
