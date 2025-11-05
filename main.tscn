@@ -26,36 +26,6 @@ autostart = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="ScoreLabel" type="Label" parent="UI"]
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 200.0
-offset_bottom = 60.0
-theme_override_font_sizes/font_size = 24
-text = "Score: 0"
-
-[node name="HighScoreLabel" type="Label" parent="UI"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -220.0
-offset_top = 20.0
-offset_right = -20.0
-offset_bottom = 60.0
-grow_horizontal = 0
-theme_override_font_sizes/font_size = 24
-text = "Best: 0"
-horizontal_alignment = 2
-
-[node name="InfoLabel" type="Label" parent="UI"]
-offset_left = 20.0
-offset_top = 60.0
-offset_right = 500.0
-offset_bottom = 180.0
-theme_override_font_sizes/font_size = 20
-text = "Arrows/WASD: Move the wave
-Shift + Arrows: Stretch and squeeze the wave"
-
 [node name="PauseOverlay" type="ColorRect" parent="UI"]
 process_mode = 3
 anchors_preset = 15
@@ -81,5 +51,40 @@ theme_override_font_sizes/font_size = 48
 text = "PAUSED"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -220.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 54.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 24
+text = "Score: 0"
+horizontal_alignment = 2
+
+[node name="HighScoreLabel" type="Label" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -220.0
+offset_top = 53.0
+offset_right = -20.0
+offset_bottom = 79.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "Best: 0"
+horizontal_alignment = 2
+
+[node name="InfoLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 500.0
+offset_bottom = 91.0
+theme_override_font_sizes/font_size = 20
+text = "Arrows/WASD: Move the wave
+Shift + Arrows: Stretch and squeeze the wave"
 
 [connection signal="timeout" from="ObstacleTimer" to="." method="_on_obstacle_timer_timeout"]
