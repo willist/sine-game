@@ -15,9 +15,6 @@ func _process(_delta):
 		var wave_y = wave.get_wave_y_at_x(surfer_x)
 		position = Vector2(surfer_x, wave_y)
 
-		# Rotate the surfer to match the wave angle
-		rotation = wave.get_wave_angle_at_x(surfer_x)
-
 func set_wave(w: Node2D):
 	wave = w
 
@@ -27,4 +24,4 @@ func _on_area_entered(area):
 
 func game_over():
 	print("Game Over! Hit an obstacle!")
-	get_tree().reload_current_scene()
+	get_tree().call_deferred("reload_current_scene")

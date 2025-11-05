@@ -11,7 +11,6 @@ var game_time: float = 0.0
 
 func _ready():
 	surfer.set_wave(wave)
-	obstacle_timer.timeout.connect(_on_obstacle_timer_timeout)
 
 func _process(delta):
 	game_time += delta

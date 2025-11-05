@@ -17,9 +17,9 @@ var wavelength_change_speed: float = 50.0
 var wave_y_speed: float = 200.0
 
 # Constraints
-const MIN_AMPLITUDE = 20.0
+const MIN_AMPLITUDE = 75.0
 const MAX_AMPLITUDE = 400.0
-const MIN_WAVELENGTH = 50.0
+const MIN_WAVELENGTH = 150.0
 const MAX_WAVELENGTH = 300.0
 
 # Screen dimensions
