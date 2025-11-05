@@ -4,15 +4,22 @@ extends Node2D
 @onready var surfer = $Surfer
 @onready var obstacle_timer = $ObstacleTimer
 @onready var score_label = $UI/ScoreLabel
+@onready var high_score_label = $UI/HighScoreLabel
 @onready var pause_overlay = $UI/PauseOverlay
 
 var obstacle_scene = preload("res://obstacle.tscn")
 var score: int = 0
+var high_score: int = 0
 var game_time: float = 0.0
+
+const SAVE_PATH = "user://high_score.save"
 
 func _ready():
 	surfer.set_wave(wave)
+	surfer.game_over.connect(_on_game_over)
 	pause_overlay.hide()
+	load_high_score()
+	high_score_label.text = "Best: " + str(high_score)
 
 func _unhandled_input(event):
 	if event.is_action_pressed("toggle_pause"):
@@ -52,3 +59,22 @@ func spawn_obstacle():
 	obstacle.set_speed(wave.wave_speed)
 
 	add_child(obstacle)
+
+func load_high_score():
+	if FileAccess.file_exists(SAVE_PATH):
+		var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+		high_score = file.get_32()
+		file.close()
+	else:
+		high_score = 0
+
+func save_high_score():
+	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	file.store_32(high_score)
+	file.close()
+
+func _on_game_over():
+	if score > high_score:
+		high_score = score
+		high_score_label.text = "Best: " + str(high_score)
+		save_high_score()

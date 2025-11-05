@@ -1,5 +1,7 @@
 extends Area2D
 
+signal game_over
+
 var wave: Node2D = null
 var surfer_x: float = 300.0
 
@@ -20,8 +22,10 @@ func set_wave(w: Node2D):
 
 func _on_area_entered(area):
 	if area.is_in_group("obstacles"):
-		game_over()
+		handle_game_over()
 
-func game_over():
+func handle_game_over():
 	print("Game Over! Hit an obstacle!")
-	get_tree().call_deferred("reload_current_scene")
+	game_over.emit()
+	await get_tree().create_timer(0.1).timeout
+	get_tree().reload_current_scene()
