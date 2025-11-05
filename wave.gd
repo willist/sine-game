@@ -82,9 +82,11 @@ func handle_input(delta):
 	# Left/Right: Translate wave horizontally (move the wave)
 	if not shift_pressed:
 		if Input.is_action_pressed("decrease_wavelength"):
+			# Left: normal speed
 			wave_offset += wave_speed * delta
 		if Input.is_action_pressed("increase_wavelength"):
-			wave_offset -= wave_speed * delta
+			# Right: double speed
+			wave_offset -= wave_speed * 2.0 * delta
 
 func generate_wave():
 	var points = PackedVector2Array()
