@@ -29,10 +29,28 @@ var screen_height: float = 720.0
 # Surfer position for anchoring wavelength changes
 const SURFER_X: float = 300.0
 
+# Touch control tracking
+var touch_points: Dictionary = {}
+var last_single_touch_pos: Vector2 = Vector2.ZERO
+var last_two_finger_distance: float = 0.0
+var last_two_finger_angle: float = 0.0
+
 func _ready():
 	screen_width = get_viewport_rect().size.x
 	screen_height = get_viewport_rect().size.y
 	generate_wave()
+
+func _input(event):
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			touch_points[event.index] = event.position
+		else:
+			touch_points.erase(event.index)
+			# Reset tracking when fingers lift
+			if touch_points.size() == 0:
+				last_two_finger_distance = 0.0
+	elif event is InputEventScreenDrag:
+		touch_points[event.index] = event.position
 
 func _process(delta):
 	# Handle input
@@ -45,6 +63,9 @@ func _process(delta):
 	generate_wave()
 
 func handle_input(delta):
+	# Handle touch controls
+	handle_touch_input(delta)
+
 	var shift_pressed = Input.is_key_pressed(KEY_SHIFT)
 
 	# Shift + Up/Down: Amplitude control (stretch and squeeze)
@@ -111,3 +132,71 @@ func get_wave_angle_at_x(x: float) -> float:
 	var y1 = get_wave_y_at_x(x)
 	var y2 = get_wave_y_at_x(x + dx)
 	return atan2(y2 - y1, dx)
+
+func handle_touch_input(delta):
+	var num_touches = touch_points.size()
+
+	if num_touches == 1:
+		# Single finger drag - move the wave
+		var touch_pos = touch_points.values()[0]
+
+		if last_single_touch_pos != Vector2.ZERO:
+			var touch_delta = touch_pos - last_single_touch_pos
+
+			# Vertical movement
+			wave_y_position += touch_delta.y
+			wave_y_position = clamp(wave_y_position, amplitude, screen_height - amplitude)
+
+			# Horizontal movement (translate wave)
+			wave_offset -= touch_delta.x * 0.5
+
+		last_single_touch_pos = touch_pos
+
+	elif num_touches == 2:
+		# Two finger pinch/stretch - affect wavelength or amplitude
+		var touches = touch_points.values()
+		var touch1 = touches[0]
+		var touch2 = touches[1]
+
+		# Calculate distance and angle between touches
+		var distance = touch1.distance_to(touch2)
+		var delta_vec = touch2 - touch1
+		var angle = abs(delta_vec.angle())
+
+		# Initialize on first two-finger touch
+		if last_two_finger_distance == 0.0:
+			last_two_finger_distance = distance
+			last_two_finger_angle = angle
+		else:
+			var distance_change = distance - last_two_finger_distance
+
+			# Determine if gesture is more horizontal or vertical
+			# angle near 0 or PI is horizontal, near PI/2 is vertical
+			var angle_from_horizontal = abs(angle)
+			if angle_from_horizontal > PI / 2:
+				angle_from_horizontal = PI - angle_from_horizontal
+
+			var is_horizontal = angle_from_horizontal < PI / 4
+
+			if is_horizontal:
+				# Affect wavelength
+				var old_wavelength = wavelength
+				wavelength += distance_change * 0.5
+				wavelength = clamp(wavelength, MIN_WAVELENGTH, MAX_WAVELENGTH)
+
+				# Adjust wave_offset to keep surfer at same phase position
+				if wavelength != old_wavelength:
+					var phase_at_surfer = (SURFER_X / old_wavelength + wave_offset / old_wavelength)
+					wave_offset = (phase_at_surfer - SURFER_X / wavelength) * wavelength
+			else:
+				# Affect amplitude
+				amplitude += distance_change * 0.5
+				amplitude = clamp(amplitude, MIN_AMPLITUDE, MAX_AMPLITUDE)
+				wave_y_position = clamp(wave_y_position, amplitude, screen_height - amplitude)
+
+			last_two_finger_distance = distance
+			last_two_finger_angle = angle
+	else:
+		# No touches or more than 2 - reset
+		last_single_touch_pos = Vector2.ZERO
+		last_two_finger_distance = 0.0
