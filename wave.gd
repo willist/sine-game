@@ -69,9 +69,9 @@ func handle_input(delta):
 	var shift_pressed = Input.is_key_pressed(KEY_SHIFT)
 
 	# Shift + Up/Down: Amplitude control (stretch and squeeze)
-	if Input.is_action_pressed("slide_wave_up"):
+	if Input.is_action_pressed("amplitude_increase"):
 		amplitude = clamp(amplitude + amplitude_change_speed * delta, MIN_AMPLITUDE, MAX_AMPLITUDE)
-	if Input.is_action_pressed("slide_wave_down"):
+	if Input.is_action_pressed("amplitude_decrease"):
 		amplitude = clamp(amplitude - amplitude_change_speed * delta, MIN_AMPLITUDE, MAX_AMPLITUDE)
 
 	# Clamp wave_y_position to keep wave on screen after amplitude changes
@@ -79,9 +79,9 @@ func handle_input(delta):
 
 	# Up/Down: Translate wave vertically (move the wave)
 	if not shift_pressed:
-		if Input.is_action_pressed("move_up"):
+		if Input.is_action_pressed("position_up"):
 			wave_y_position -= wave_y_speed * delta
-		if Input.is_action_pressed("move_down"):
+		if Input.is_action_pressed("position_down"):
 			wave_y_position += wave_y_speed * delta
 
 	# Clamp wave_y_position to keep wave on screen
@@ -90,9 +90,9 @@ func handle_input(delta):
 	# Shift + Left/Right: Wavelength control (stretch and squeeze)
 	var old_wavelength = wavelength
 
-	if Input.is_action_pressed("slide_wave_left"):
+	if Input.is_action_pressed("wavelength_decrease"):
 		wavelength = clamp(wavelength - wavelength_change_speed * delta, MIN_WAVELENGTH, MAX_WAVELENGTH)
-	if Input.is_action_pressed("slide_wave_right"):
+	if Input.is_action_pressed("wavelength_increase"):
 		wavelength = clamp(wavelength + wavelength_change_speed * delta, MIN_WAVELENGTH, MAX_WAVELENGTH)
 
 	# Adjust wave_offset to keep surfer at same phase position
@@ -102,10 +102,10 @@ func handle_input(delta):
 
 	# Left/Right: Translate wave horizontally (move the wave)
 	if not shift_pressed:
-		if Input.is_action_pressed("decrease_wavelength"):
+		if Input.is_action_pressed("position_left"):
 			# Left: normal speed
 			wave_offset += wave_speed * delta
-		if Input.is_action_pressed("increase_wavelength"):
+		if Input.is_action_pressed("position_right"):
 			# Right: double speed
 			wave_offset -= wave_speed * 2.0 * delta
 
