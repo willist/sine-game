@@ -5,6 +5,7 @@ extends Node2D
 @onready var obstacle_timer = $ObstacleTimer
 @onready var score_label = $UI/ScoreLabel
 @onready var high_score_label = $UI/HighScoreLabel
+@onready var info_label = $UI/InfoLabel
 @onready var pause_overlay = $UI/PauseOverlay
 @onready var game_over_overlay = $UI/GameOverOverlay
 @onready var final_score_label = $UI/GameOverOverlay/FinalScoreLabel
@@ -24,6 +25,16 @@ func _ready():
 	game_over_overlay.hide()
 	load_high_score()
 	high_score_label.text = "Best: " + str(high_score)
+	update_instructions()
+
+func update_instructions():
+	var has_touch = DisplayServer.is_touchscreen_available()
+	if has_touch:
+		info_label.text = "Drag: Move the wave
+Two fingers: Pinch/stretch to adjust"
+	else:
+		info_label.text = "Arrows/WASD: Move the wave
+Shift + Arrows: Stretch and squeeze the wave"
 
 func _unhandled_input(event):
 	if event.is_action_pressed("toggle_pause"):
