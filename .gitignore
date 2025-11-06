@@ -12,3 +12,10 @@
 .mono/
 data_*/
 mono_crash.*.json
+
+# iOS export artifacts
+*.xcodeproj/
+*.xcframework/
+*.ipa/
+*.pck
+PrivacyInfo.xcprivacy
