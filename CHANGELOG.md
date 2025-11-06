@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.8.0](https://github.com/willist/sine-game/compare/v1.7.0...v1.8.0) (2025-11-06)
+
+### Features
+
+* add dynamic instructions for touch/keyboard ([bddecbc](https://github.com/willist/sine-game/commit/bddecbcb88ed6d6e12a2e498c3d7f1ca50a355c1))
+* add touch controls for mobile ([dc6aabf](https://github.com/willist/sine-game/commit/dc6aabfb8f00e545e39a27d6ddc6854b1304432b))
+
+### Code Refactoring
+
+* rename input actions for clarity ([1edc55b](https://github.com/willist/sine-game/commit/1edc55bff6071715fe6c5c94d3ef6e9d5846293b))
+
 ## [1.7.0](https://github.com/willist/sine-game/compare/v1.6.0...v1.7.0) (2025-11-05)
 
 ### Features
